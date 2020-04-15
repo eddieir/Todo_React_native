@@ -1,15 +1,14 @@
 import firebase from 'firebase';
-import '@firebase/firestore';
+import 'firebase/firestore';
 const firebaseConfig = {
-  apiKey: "AIzaSyAuRBTLxSGqxVWGDoWSIcAPIYYnPho1zQE",
-  authDomain: "reactnativetodoapp-15960.firebaseapp.com",
-  databaseURL: "https://reactnativetodoapp-15960.firebaseio.com",
-  projectId: "reactnativetodoapp-15960",
-  storageBucket: "reactnativetodoapp-15960.appspot.com",
-  messagingSenderId: "646138547458",
-  appId: "1:646138547458:web:80683871d90fbdfec6461b"
-
-}
+  apiKey: "AIzaSyAHj50Bn9KD9f9vkY4NQ7bqNiKfJ1tVjjE",
+  authDomain: "reactnativetodolistapp.firebaseapp.com",
+  databaseURL: "https://reactnativetodolistapp.firebaseio.com",
+  projectId: "reactnativetodolistapp",
+  storageBucket: "reactnativetodolistapp.appspot.com",
+  messagingSenderId: "81846088749",
+  appId: "1:81846088749:web:a14714a516b2d977d634a4"
+};
 class Fire {
   constructor(callback) {
     this.init(callback)
@@ -30,16 +29,18 @@ class Fire {
             callback(error);
           });
       }
+      console.log('here');
     });
   }
+
   getLists(callback) {
     let ref = firebase
       .firestore()
-      .collection('users')
+      .collection("users")
       .doc(this.userId)
-      .collection('lists');
+      .collection("lists");
 
-    this.unsubscibe = ref.onSnapshot(snapshot => {
+    this.unsubscribe = ref.onSnapshot(snapshot => {
       lists = [];
 
       snapshot.forEach(doc => {
@@ -54,7 +55,7 @@ class Fire {
     return firebase.auth().currentUser.uid;
   }
   detach() {
-    this.unsubscibe()
+    this.unsubscribe()
   }
 }
 

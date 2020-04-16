@@ -5,15 +5,15 @@ import { AntDesign } from '@expo/vector-icons';
 import tempData from './tempData';
 import TodoList from './components/TodoList';
 import AddListModal from './components/AddListModal';
-//import Fire from './FireBase';
+import Fire from './FireBase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 export default class App extends Component {
   state = {
     addTodoVisible: false,
-    lists: tempData,
-    //user: {},
-    //loading: true
+    lists: [],
+    user: {},
+    loading: true
   };
 
   /*componentDidMount() {
@@ -28,27 +28,23 @@ export default class App extends Component {
     });
   }*/
 
-  componentDidMount() {
-    //firebase = new Fire()
-    /*firebase = new Fire((error, user) => {
-      if (error) {
-        return alert("Something went wrong");
-      }
 
+
+  componentDidMount() {
+    firebase = new Fire((error, user) => {
+      if (error) {
+        return alert("Ooops sth went wrong");
+      }
       firebase.getLists(lists => {
         this.setState({ lists, user }, () => {
-          this.setState({ loading: false });
-        });
-      });
+          this.setState({ loading: false })
+        })
+      })
       this.setState({ user });
-      YellowBox.ignoreWarnings(['Setting a timer']);
-      const _console = _.clone(console);
-      console.warn = message => {
-        if (message.indexOf('Setting a timer') <= -1) {
-          _console.warn(message);
-        }
-      };
-    });*/
+
+
+    });
+
 
   }
 
@@ -91,6 +87,9 @@ export default class App extends Component {
             closeModal={() => this.toggleAddTodoModal()}
             addList={this.addList} />
         </Modal>
+        <View>
+          <Text>User:{this.state.user.uid}</Text>
+        </View>
         <View style={{ flexDirection: "row" }}>
           <View style={styles.divider} />
           <Text style={styles.title}>

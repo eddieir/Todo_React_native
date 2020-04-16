@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import 'firebase/firestore';
+import '@firebase/firestore';
 const firebaseConfig = {
   apiKey: "AIzaSyAHj50Bn9KD9f9vkY4NQ7bqNiKfJ1tVjjE",
   authDomain: "reactnativetodolistapp.firebaseapp.com",
@@ -9,9 +9,10 @@ const firebaseConfig = {
   messagingSenderId: "81846088749",
   appId: "1:81846088749:web:a14714a516b2d977d634a4"
 };
+
 class Fire {
   constructor(callback) {
-    this.init(callback)
+    this.init(callback);
   }
   init(callback) {
     if (!firebase.apps.length) {
@@ -26,14 +27,12 @@ class Fire {
           .auth()
           .signInAnonymously()
           .catch(error => {
-            callback(error);
+            callback(error)
           });
       }
-      console.log('here');
     });
   }
-
-  getLists(callback) {
+  getList(callback) {
     let ref = firebase
       .firestore()
       .collection("users")
@@ -41,22 +40,18 @@ class Fire {
       .collection("lists");
 
     this.unsubscribe = ref.onSnapshot(snapshot => {
-      lists = [];
-
+      lists = []
       snapshot.forEach(doc => {
-        lists.push({ id: doc.id, ...doc.data() });
+        lists.push({ id: doc.id, ...doc.data() })
       })
 
       callback(lists);
-    });
-  }
-
+    })
+    console.log(ref);
+  };
   get userId() {
-    return firebase.auth().currentUser.uid;
+    return firebase.auth().currentUser.uid
   }
-  detach() {
-    this.unsubscribe()
-  }
-}
+};
 
 export default Fire;
